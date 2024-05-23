@@ -1,11 +1,6 @@
-import { Dropdown } from "primereact/dropdown";
-import { InputNumber } from "primereact/inputnumber";
-import { InputText } from "primereact/inputtext";
-import { RadioButton } from "primereact/radiobutton";
-import { SelectButton } from "primereact/selectbutton";
 import { useState } from "react";
 
-const scales = ["1/12", "1/16", "1/20", "1/24", "1/32", "1/48", "1/64", "other"];
+const scales = ["1/12", "1/16", "1/20", "1/24", "1/25", "1/32", "1/48", "1/64", "other"];
 const units = ["mm", "cm", "m", "in", "ft"];
 
 type UnitProportions = {[key: string]: number};
@@ -27,6 +22,7 @@ export default function Index() {
     });
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        console.log(`handleInputChange event.target.id: ${event.target.id}`);
         let newProps = {
             ...conversionProps,
             [event.target.id]: event.target.value
@@ -62,11 +58,7 @@ export default function Index() {
                 ))}
             </select>
             <p>Real Length</p>
-            {/* <InputNumber id="realLength2" value={conversionProps.realLength} /> */}
             <input id="realLength" type="number" placeholder="1" value={Number(conversionProps.realLength).toFixed(4)} onChange={handleInputChange} />
-
-            {/* <SelectButton id="realUnit2" value={conversionProps.realUnit} options={units} />
-            <Dropdown id="realUnit2" value={conversionProps.realUnit} options={units} /> */}
             <select id="realUnit" defaultValue="in" onChange={handleInputChange}>
                 {units.map((value) => (
                     <option key={value} value={value}>
@@ -88,13 +80,6 @@ export default function Index() {
                 <p>Real Length {Number(conversionProps.realLength).toFixed(4)} {conversionProps.realUnit}</p>
                 <p>Scale Length {Number(conversionProps.scaleLength).toFixed(4)} {conversionProps.scaleUnit}</p>
             </div>
-
-            {/* <div className="p-inputgroup flex-1">
-                <InputText placeholder="Price" />
-                <span className="p-inputgroup-addon">
-                    <Dropdown id="realUnit2" value={conversionProps.realUnit} options={units} />
-                </span>
-            </div> */}
         </div>
     );
 }
